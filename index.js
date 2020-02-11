@@ -13,10 +13,11 @@ const getStaticFolder = folder => path.join(__dirname, `../${folder}`);
 const getAppStaticFolder = (folder, dir) => path.join(__dirname, `../${folder}/${dir}`);
 const getHtmlFile = folder => pah.join(folder, 'index.html');
 
-app.use(`/`, express.static(getAppStaticFolder('portfolio', 'build')));
+// Initial path
+app.use(`/`, express.static(getAppStaticFolder('Portfolio', 'build')));
 
 app.get(`/`, (req, res) => {
-  const responseFile = getHtmlFile(getAppStaticFolder('portfolio', 'build'));
+  const responseFile = getHtmlFile(getAppStaticFolder('Portfolio', 'build'));
   res.sendFile(responseFile);
 })
 
@@ -30,7 +31,7 @@ const responseWithSimpleProject = projectName => {
   })
 }
 
-// Response with project that have complicated project structure
+// Response with webpack project structure
 const responseWithApp = (projectName, dir) => {
   app.use(`/${projectName}`, express.static(getAppStaticFolder(projectName, dir)));
 
@@ -41,11 +42,13 @@ const responseWithApp = (projectName, dir) => {
 }
 
 responseWithSimpleProject('Lawyer');
-responseWithSimpleProject('Pets');
+responseWithSimpleProject('ShelterLayout');
 responseWithSimpleProject('ImageGenerator');
 
-responseWithApp('Zero', 'dist');
-// responseWithApp('portfolio', 'build');
+responseWithApp('ZeroLayout', 'dist');
+responseWithApp('trelloClone', 'dist');
+responseWithApp('Dictionary', 'build');
+responseWithApp('MusicShop', 'dist');
 
 app.listen(
   PORT,
